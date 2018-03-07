@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
-    private EditText nameField, emailField;
+    private EditText etName, etBusiness, etAddress, etProvince;
     private MyApplicationData appState;
 
     @Override
@@ -20,18 +21,27 @@ public class CreateContactAcitivity extends Activity {
         appState = ((MyApplicationData) getApplicationContext());
 
         submitButton = (Button) findViewById(R.id.submitButton);
-        nameField = (EditText) findViewById(R.id.name);
-        emailField = (EditText) findViewById(R.id.email);
+        etName = (EditText) findViewById(R.id.name);
+        etBusiness = (EditText) findViewById(R.id.business);
+        etAddress = (EditText) findViewById(R.id.address);
+        etProvince = (EditText) findViewById(R.id.province);
+
     }
 
     public void submitInfoButton(View v) {
         //each entry needs a unique ID
-        String personID = appState.firebaseReference.push().getKey();
-        String name = nameField.getText().toString();
-        String email = emailField.getText().toString();
-        Contact person = new Contact(personID, name, email);
+        String bno = appState.firebaseReference.push().getKey();
+        String name = etName.getText().toString();
+        String business = etBusiness.getText().toString();
+        String address = etAddress.getText().toString();
+        String province = etProvince.getText().toString();
 
-        appState.firebaseReference.child(personID).setValue(person);
+        Business b  = new Business(bno, name, business, address, province);
+
+        appState.firebaseReference.child(bno).setValue(b);
+
+        Toast.makeText(appState, "Created Successfully!",Toast.LENGTH_SHORT).show();
+
 
         finish();
 

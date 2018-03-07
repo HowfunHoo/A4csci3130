@@ -5,33 +5,76 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DetailViewActivity extends Activity {
 
-    private EditText nameField, emailField;
-    Contact receivedPersonInfo;
+    private EditText etName, etBusiness, etAddress, etProvince;
+    Business receivedBusinessInfo;
+    private MyApplicationData appState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_view);
-        receivedPersonInfo = (Contact)getIntent().getSerializableExtra("Contact");
 
-        nameField = (EditText) findViewById(R.id.name);
-        emailField = (EditText) findViewById(R.id.email);
+        appState = ((MyApplicationData) getApplicationContext());
 
-        if(receivedPersonInfo != null){
-            nameField.setText(receivedPersonInfo.name);
-            emailField.setText(receivedPersonInfo.email);
+        receivedBusinessInfo = (Business) getIntent().getSerializableExtra("Business");
+
+        etName = (EditText) findViewById(R.id.name);
+        etBusiness = (EditText) findViewById(R.id.business);
+        etAddress = (EditText) findViewById(R.id.address);
+        etProvince = (EditText) findViewById(R.id.province);
+
+        if(receivedBusinessInfo != null){
+            etName.setText(receivedBusinessInfo.name);
+            etBusiness.setText(receivedBusinessInfo.business);
+            etAddress.setText(receivedBusinessInfo.address);
+            etProvince.setText(receivedBusinessInfo.province);
         }
     }
 
-    public void updateContact(View v){
-        //TODO: Update contact funcionality
+    /**
+     * This is a clicklisener of the button 'updateButton'
+     * This method updates the data in the Firebase.
+     * @param v updateButton
+     */
+    public void updateBusiness(View v){
+        String bno = receivedBusinessInfo.bno;
+        String name = etName.getText().toString();
+        String business = etBusiness.getText().toString();
+        String address = etAddress.getText().toString();
+        String province = etProvince.getText().toString();
+
+        Business b = new Business(bno, name, business, address, province);
+        Map<String, Object> businessValues = b.toMap();
+
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put(bno, businessValues);
+
+        appState.firebaseReference.updateChildren(childUpdates);
+
+        Toast.makeText(appState, "Updated Successfully!",Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
-    public void eraseContact(View v)
+    /**
+     * This is a clicklisener of the button 'deleteButton'
+     * This method deletes the data from Firebase.
+     * @param v deleteButton
+     */
+    public void eraseBusiness(View v)
     {
-        //TODO: Erase contact functionality
+        String bno = receivedBusinessInfo.bno;
+        appState.firebaseReference.child(bno).removeValue();
+
+        Toast.makeText(appState, "Deleted Successfully!",Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 }
