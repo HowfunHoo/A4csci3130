@@ -29,4 +29,4 @@
         app:layout_constraintTop_toBottomOf="@+id/submitButton"
         app:layout_constraintRight_toRightOf="parent"/>
 
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
