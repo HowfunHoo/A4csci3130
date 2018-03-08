@@ -34,6 +34,7 @@ public class ReadandCreateTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
+    
     @Test
     public void readandCreateTest() {
         ViewInteraction button = onView(
@@ -64,7 +65,7 @@ public class ReadandCreateTest {
                                         0),
                                 1),
                         isDisplayed()));
-        editText2.perform(replaceText("Restaurant"), closeSoftKeyboard());
+        editText2.perform(replaceText("Fisher"), closeSoftKeyboard());
 
         ViewInteraction editText3 = onView(
                 allOf(withId(R.id.address),

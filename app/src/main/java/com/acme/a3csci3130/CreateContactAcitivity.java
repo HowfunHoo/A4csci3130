@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
@@ -30,7 +32,11 @@ public class CreateContactAcitivity extends Activity {
 
     public void submitInfoButton(View v) {
         //each entry needs a unique ID
-        String bno = appState.firebaseReference.push().getKey();
+
+//        String bno = appState.firebaseReference.push().getKey();
+
+        String bno = Long.toString(generateRandomID(9));
+        System.out.println(bno);
         String name = etName.getText().toString();
         String business = etBusiness.getText().toString();
         String address = etAddress.getText().toString();
@@ -46,4 +52,16 @@ public class CreateContactAcitivity extends Activity {
         finish();
 
     }
+
+    public static long generateRandomID(int length) {
+        Random random = new Random();
+        char[] digits = new char[length];
+        digits[0] = (char) (random.nextInt(9) + '1');
+        for (int i = 1; i < length; i++) {
+            digits[i] = (char) (random.nextInt(10) + '0');
+        }
+        return Long.parseLong(new String(digits));
+    }
+
+
 }

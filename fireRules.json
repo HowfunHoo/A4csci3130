@@ -1,16 +1,51 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "true",
-    "contacts": {
-            "$contact": {
-                "name": {
-                    ".validate": "newData.isString() && newData.val().length < 50"
-                },
-                "email": {
-                    ".validate": "newData.isString() && newData.val().matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$/i)"
-                }
-            }
-        }
+    "businesses": {
+      ".read": true,
+      ".write": true,
+      "$bno": {
+        ".validate": "newData.hasChildren(['bno', 'name', 'business'])",
+              "bno": {
+                // the value of "bno" must exist as a key in our mythical
+                // /businesses/ index
+                // the value of "bno" must consist of 9 digits
+                ".validate": "newData.isString() && newData.val().length == 9"
+              },
+              "name": {
+                // the value of "name" must have 2-48 characters
+                ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 48"
+              },
+              "business": {
+                // the value of "business" must be one of {Fisher, Distributor, Processor, Fish Monger}
+                ".validate": "newData.isString() && ( newData.val() == 'Fisher' ||
+                                                      newData.val() == 'Distributor' ||
+                                                      newData.val() == 'Processor' ||
+                                                      newData.val() == 'Fish Monger')"
+              },
+              "address": {
+                // the value of "address" must have less than 50 characters
+                ".validate": "newData.isString() && newData.val().length < 50"
+              },
+              "province": {
+                // the value of "province" must be one of
+                // {AB, BC, MB, NB, NL, NS, NT, NU, ON, PE, QC, SK, YT, “ “}
+                ".validate": "newData.isString() && ( newData.val() == 'AB' ||
+                                                      newData.val() == 'BC' ||
+                                                      newData.val() == 'MB' ||
+                                                      newData.val() == 'NB' ||
+                                                      newData.val() == 'NL' ||
+                                                      newData.val() == 'NS' ||
+                                                      newData.val() == 'NT' ||
+                                                      newData.val() == 'NU' ||
+                                                      newData.val() == 'ON' ||
+                                                      newData.val() == 'PE' ||
+                                                      newData.val() == 'QC' ||
+                                                      newData.val() == 'SK' ||
+                                                      newData.val() == 'YT' ||
+                                                      newData.val() == ' ' )"
+              }
+      }
+
+    }
   }
 }
