@@ -10,6 +10,13 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Activity that shows the detailed information of the selected business
+ * and can update or delete the business
+ * @author  Haofan Hou
+ * @version 1.0
+ * @since   2018-03-06
+ */
 public class DetailViewActivity extends Activity {
 
     private EditText etName, etBusiness, etAddress, etProvince;

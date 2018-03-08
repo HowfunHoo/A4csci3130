@@ -34,7 +34,7 @@ public class ReadandCreateTest {
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-    
+
     @Test
     public void readandCreateTest() {
         ViewInteraction button = onView(

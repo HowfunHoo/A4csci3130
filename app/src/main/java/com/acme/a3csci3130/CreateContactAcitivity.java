@@ -9,12 +9,21 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+
+/**
+ * Activity that creates new data and stores it into Firebase database
+ * @author  Haofan Hou
+ * @version 1.0
+ * @since   2018-03-06
+ */
+
 public class CreateContactAcitivity extends Activity {
 
     private Button submitButton;
     private EditText etName, etBusiness, etAddress, etProvince;
     private MyApplicationData appState;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +39,17 @@ public class CreateContactAcitivity extends Activity {
 
     }
 
+    /**
+     * This is a clicklisener of the button 'submitButton'
+     * This method create the data in the Firebase.
+     * @param v submitButton
+     */
     public void submitInfoButton(View v) {
-        //each entry needs a unique ID
 
 //        String bno = appState.firebaseReference.push().getKey();
 
-        String bno = Long.toString(generateRandomID(9));
+        //generate a 9-digit random number as the business number
+        String bno = Long.toString(generateID(9));
         System.out.println(bno);
         String name = etName.getText().toString();
         String business = etBusiness.getText().toString();
@@ -53,7 +67,12 @@ public class CreateContactAcitivity extends Activity {
 
     }
 
-    public static long generateRandomID(int length) {
+    /**
+     * This method returns a random number depends on the length.
+     * This method is used to generate the business number of each business
+     * @param length the length of the required random number
+     */
+    public static long generateID(int length) {
         Random random = new Random();
         char[] digits = new char[length];
         digits[0] = (char) (random.nextInt(9) + '1');

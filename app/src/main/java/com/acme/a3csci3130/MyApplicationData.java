@@ -6,7 +6,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * Created by Franz on 2017-05-31.
+ * Class that defines Database Reference and Firebase Database instance
+ * @author  Haofan Hou
+ * @version 1.0
+ * @since   2018-03-06
  */
 
 public class MyApplicationData extends Application {

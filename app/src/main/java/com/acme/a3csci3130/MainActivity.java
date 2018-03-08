@@ -11,6 +11,14 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Main Activity
+ * The actvity lists the data stored in the Firebase database
+ * and provides an entrance to CreateContactAcitivity
+ * @author  Haofan Hou
+ * @version 1.0
+ * @since   2018-03-06
+ */
 public class MainActivity extends Activity {
 
 
@@ -52,12 +60,22 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * This is a clicklisener of the button 'SubmitButton'
+     * Clicking the button will reach CreateContactAcitivity
+     * @param v SubmitButton
+     */
     public void createBusinessButton(View v)
     {
         Intent intent=new Intent(this, CreateContactAcitivity.class);
         startActivity(intent);
     }
 
+    /**
+     * This method leads the user to the DetailViewActivity
+     * which contains the detailed information of the selected business
+     * @param b the selected business
+     */
     private void showDetailView(Business b)
     {
         Intent intent = new Intent(this, DetailViewActivity.class);
